@@ -248,7 +248,7 @@ export default function Pricing() {
             ))}
           </div>
           
-          <div className="mt-16 text-center opacity-0 animate-fade-in" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
+          <div className="mt-16 text-center animate-fade-in-delay" style={{ animationDelay: '600ms' }}>
             <p className="text-muted-foreground mb-4">
               All plans include a 14-day free trial. No credit card required.
             </p>
@@ -262,7 +262,7 @@ export default function Pricing() {
       {/* FAQ */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '700ms', animationFillMode: 'forwards' }}>
+          <div className="text-center mb-12 animate-fade-in-delay" style={{ animationDelay: '700ms' }}>
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
               Frequently Asked Questions
             </h2>
@@ -294,7 +294,7 @@ export default function Pricing() {
                 a: "We accept all major credit cards, including Visa, Mastercard, and American Express. Enterprise customers can also pay via invoice with net-30 terms."
               }
             ].map((faq, index) => (
-              <Card key={index} className="opacity-0 animate-fade-in" style={{ animationDelay: `${800 + (index * 100)}ms`, animationFillMode: 'forwards' }}>
+              <Card key={index} className="animate-fade-in-delay" style={{ animationDelay: `${800 + (index * 100)}ms` }}>
                 <CardHeader>
                   <CardTitle className="text-xl">{faq.q}</CardTitle>
                 </CardHeader>
@@ -305,7 +305,7 @@ export default function Pricing() {
             ))}
           </div>
           
-          <div className="mt-12 text-center opacity-0 animate-fade-in" style={{ animationDelay: '1300ms', animationFillMode: 'forwards' }}>
+          <div className="mt-12 text-center animate-fade-in-delay" style={{ animationDelay: '1300ms' }}>
             <p className="mb-6 text-lg">
               Still have questions? We're here to help.
             </p>
@@ -320,7 +320,7 @@ export default function Pricing() {
       <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="absolute -bottom-24 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
         <div className="container px-4 md:px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center opacity-0 animate-fade-in" style={{ animationDelay: '1400ms', animationFillMode: 'forwards' }}>
+          <div className="max-w-3xl mx-auto text-center animate-fade-in-delay" style={{ animationDelay: '1400ms' }}>
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-primary/70">
               Ready to Transform Your Social Content?
             </h2>
@@ -339,22 +339,25 @@ export default function Pricing() {
         </div>
       </section>
       
-      <style jsx global>{`
-        @keyframes fade-in {
-          0% { 
-            opacity: 0; 
-            transform: translateY(10px);
+      <style>
+        {`
+          @keyframes fade-in {
+            0% { 
+              opacity: 0; 
+              transform: translateY(10px);
+            }
+            100% { 
+              opacity: 1; 
+              transform: translateY(0);
+            }
           }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0);
+          
+          .animate-fade-in-delay {
+            opacity: 0;
+            animation: fade-in 0.6s ease-out forwards;
           }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-        }
-      `}</style>
+        `}
+      </style>
     </Layout>
   );
 }
