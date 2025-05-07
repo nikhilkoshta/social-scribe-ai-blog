@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function PricingSection() {
   const [annual, setAnnual] = useState(true);
@@ -53,7 +54,9 @@ export default function PricingSection() {
                 <span className="text-4xl font-bold">$0</span>
                 <span className="text-muted-foreground">/month</span>
               </div>
-              <Button className="w-full mb-6">Get Started</Button>
+              <Button className="w-full mb-6" asChild>
+                <Link to="/auth">Get Started</Link>
+              </Button>
 
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -82,10 +85,12 @@ export default function PricingSection() {
 
           {/* Pro Plan */}
           <div className="relative group bg-card border border-primary rounded-xl overflow-hidden transition-all hover:shadow-lg">
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-violet-600"></div>
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-xs text-white px-3 py-1 rounded-full">
+            {/* Enhanced Popular Badge */}
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary to-violet-600"></div>
+            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-primary to-violet-600 text-xs text-white font-medium px-4 py-1.5 rounded-full shadow-md">
               MOST POPULAR
             </div>
+            
             <div className="p-6 md:p-8 pt-10">
               <h3 className="text-xl font-semibold mb-2">Pro</h3>
               <p className="text-muted-foreground mb-6">For content creators</p>
@@ -94,7 +99,9 @@ export default function PricingSection() {
                 <span className="text-muted-foreground">/month</span>
                 {annual && <span className="ml-2 text-xs text-primary font-medium">Save $120/year</span>}
               </div>
-              <Button className="w-full mb-6 bg-primary text-white hover:bg-primary/90">Get Started</Button>
+              <Button className="w-full mb-6 bg-primary text-white hover:bg-primary/90" asChild>
+                <Link to="/auth">Get Started</Link>
+              </Button>
 
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -135,7 +142,9 @@ export default function PricingSection() {
                 <span className="text-muted-foreground">/month</span>
                 {annual && <span className="ml-2 text-xs text-primary font-medium">Save $600/year</span>}
               </div>
-              <Button className="w-full mb-6" variant="outline">Contact Sales</Button>
+              <Button className="w-full mb-6" variant="outline" asChild>
+                <Link to="/auth">Contact Sales</Link>
+              </Button>
 
               <div className="space-y-4">
                 <div className="flex items-start">
