@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Twitter, Linkedin, Magic, AlertCircle } from "lucide-react";
+import { Twitter, Linkedin, Mic, AlertCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface SocialPostImporterProps {
@@ -65,7 +65,7 @@ Key findings from our study:
 
 I'd love to hear your experiences with AI in your content workflow. What's working? What challenges are you facing?`;
     
-    setLinkedInContent(exampleLinkedInPost);
+    setLinkedinContent(exampleLinkedInPost);
   };
   
   return (
@@ -118,7 +118,7 @@ I'd love to hear your experiences with AI in your content workflow. What's worki
                 disabled={isGenerating}
                 className="group"
               >
-                <Magic className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+                <Mic className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
                 Generate Blog Post
               </Button>
             </div>
@@ -145,7 +145,7 @@ I'd love to hear your experiences with AI in your content workflow. What's worki
                   placeholder="Paste your LinkedIn post here..."
                   className="min-h-[200px] bg-transparent border-none focus-visible:ring-0 resize-none p-0"
                   value={linkedinContent}
-                  onChange={(e) => setLinkedInContent(e.target.value)}
+                  onChange={(e) => setLinkedinContent(e.target.value)}
                 />
               </div>
             </div>
@@ -163,7 +163,7 @@ I'd love to hear your experiences with AI in your content workflow. What's worki
                 disabled={isGenerating}
                 className="group"
               >
-                <Magic className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+                <Mic className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
                 Generate Blog Post
               </Button>
             </div>

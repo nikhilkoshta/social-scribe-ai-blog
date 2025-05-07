@@ -147,20 +147,25 @@ export default function CreateBlog() {
       tempDiv.innerHTML = content;
       const excerpt = tempDiv.textContent?.substring(0, 150) + '...';
       
-      // Save to Supabase
+      // Get the current user
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('You must be logged in to save blogs');
+      }
+      
+      // Save to Supabase with the user_id
       const { data, error } = await supabase
         .from('blogs')
-        .insert([
-          {
-            title,
-            content,
-            excerpt,
-            status,
-            source_type: 'manual',
-            seo_score: seoScore,
-            ...(status === 'published' ? { published_at: new Date().toISOString() } : {})
-          }
-        ])
+        .insert({
+          title,
+          content,
+          excerpt,
+          status,
+          source_type: 'manual',
+          seo_score: seoScore,
+          user_id: session.user.id,
+          ...(status === 'published' ? { published_at: new Date().toISOString() } : {})
+        })
         .select();
         
       if (error) throw error;

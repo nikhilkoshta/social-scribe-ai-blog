@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Twitter, Linkedin, Magic, ArrowRight } from "lucide-react";
+import { Twitter, Linkedin, Mic, ArrowRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 export default function LiveDemo() {
@@ -211,7 +210,7 @@ As we look toward the next five years of development in this space, one thing is
                         </>
                       ) : (
                         <>
-                          <Magic className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                          <Mic className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
                           Generate Blog Post
                         </>
                       )}
