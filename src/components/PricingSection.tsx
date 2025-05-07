@@ -1,192 +1,165 @@
 
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function PricingSection() {
   const [annual, setAnnual] = useState(true);
 
+  const plans = [
+    {
+      name: "Basic",
+      description: "Perfect for getting started",
+      price: { monthly: 0, annual: 0 },
+      features: [
+        "3 blog conversions per month",
+        "Twitter & LinkedIn integration",
+        "Basic SEO suggestions",
+        "Markdown export",
+        "Community support"
+      ],
+      isFree: true
+    },
+    {
+      name: "Pro",
+      description: "For content creators",
+      price: { monthly: 29, annual: 19 },
+      features: [
+        "Unlimited blog conversions",
+        "All social media platforms",
+        "Advanced SEO optimization",
+        "WordPress & Webflow integration",
+        "Real-time collaboration",
+        "Priority email support"
+      ],
+      isPopular: true
+    },
+    {
+      name: "Enterprise",
+      description: "For teams & agencies",
+      price: { monthly: 99, annual: 79 },
+      features: [
+        "Everything in Pro, plus:",
+        "Unlimited team members",
+        "Custom AI training on your content",
+        "White labeling & custom domain",
+        "Advanced analytics dashboard",
+        "Dedicated account manager",
+        "24/7 priority support"
+      ]
+    }
+  ];
+
   return (
-    <section id="pricing" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-40 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl -z-10" />
-
-      <div className="container px-4 md:px-6">
-        <div className="text-center mx-auto mb-16 max-w-3xl">
+    <section className="py-16 md:py-24 relative overflow-hidden" id="pricing">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-10" />
+      <div className="container px-4 md:px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-12 animated fade-in-up">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-            Choose the Perfect <span className="text-gradient">Plan</span> for Your Needs
+            Choose The Perfect Plan For Your Needs
           </h2>
-          <p className="text-muted-foreground md:text-lg">
-            Get started for free or upgrade to unlock premium features for your content creation needs
+          <p className="text-muted-foreground md:text-lg max-w-2xl mx-auto">
+            Select a plan that's right for you. All plans include a 14-day free trial with no credit card required.
           </p>
-
-          <div className="flex items-center justify-center mt-8 space-x-3">
-            <span className={`text-sm ${!annual ? "text-foreground font-medium" : "text-muted-foreground"}`}>
-              Monthly
-            </span>
-            <button
-              onClick={() => setAnnual(!annual)}
-              className="relative inline-flex h-6 w-11 items-center rounded-full bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              data-state={annual ? "checked" : "unchecked"}
+          
+          <div className="bg-muted flex items-center justify-center p-1 rounded-lg max-w-xs mx-auto mt-8">
+            <Tabs 
+              defaultValue={annual ? "annual" : "monthly"}
+              onValueChange={(value) => setAnnual(value === "annual")}
+              className="w-full"
             >
-              <span
-                data-state={annual ? "checked" : "unchecked"}
-                className={`inline-block h-4 w-4 rounded-full bg-primary transition-transform ${
-                  annual ? "translate-x-6" : "translate-x-1"
-                }`}
-              />
-            </button>
-            <span className={`text-sm ${annual ? "text-foreground font-medium" : "text-muted-foreground"}`}>
-              Annual <span className="text-primary font-medium">-20%</span>
-            </span>
+              <TabsList className="w-full grid grid-cols-2">
+                <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                <TabsTrigger value="annual">
+                  Annual <span className="ml-1 text-xs text-primary">-20%</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Free Plan */}
-          <div className="relative group bg-card border border-border rounded-xl overflow-hidden transition-all hover:shadow-lg">
-            <div className="p-6 md:p-8">
-              <h3 className="text-xl font-semibold mb-2">Basic</h3>
-              <p className="text-muted-foreground mb-6">Perfect for getting started</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">$0</span>
-                <span className="text-muted-foreground">/month</span>
-              </div>
-              <Button className="w-full mb-6" asChild>
-                <Link to="/auth">Get Started</Link>
-              </Button>
-
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">3 blog conversions per month</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Twitter & LinkedIn integration</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Basic SEO suggestions</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Markdown export</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-muted-foreground shrink-0" />
-                  <span className="text-sm text-muted-foreground">Community support</span>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {plans.map((plan, i) => (
+            <div key={plan.name} className={`animated fade-in-up delay-${i * 200}`}>
+              <Card className={`h-full flex flex-col ${
+                plan.isPopular ? 'border-primary relative shadow-lg dark:shadow-primary/10' : 'border-border hover:border-primary/50'
+              } card-hover-effect`}>
+                {plan.isPopular && (
+                  <>
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs font-semibold py-1 px-3 rounded-full z-10">
+                      <span className="flex items-center">
+                        <Sparkles className="h-3 w-3 mr-1" />
+                        MOST POPULAR
+                      </span>
+                    </div>
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-violet-500"></div>
+                  </>
+                )}
+                <CardHeader className="pb-0">
+                  <CardTitle>{plan.name}</CardTitle>
+                  <CardDescription>{plan.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-6 flex-grow">
+                  <div className="mb-6">
+                    {plan.isFree ? (
+                      <div className="text-4xl font-bold">Free</div>
+                    ) : (
+                      <>
+                        <div className="flex items-baseline">
+                          <span className="text-4xl font-bold">${annual ? plan.price.annual : plan.price.monthly}</span>
+                          <span className="text-muted-foreground ml-1">/month</span>
+                        </div>
+                        {annual && (
+                          <div className="text-xs text-primary mt-1">
+                            Save ${(plan.price.monthly - plan.price.annual) * 12}/year
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  <ul className="space-y-2.5 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start">
+                        <Check className="h-5 w-5 text-primary mr-2 shrink-0" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button 
+                    asChild 
+                    className="w-full" 
+                    variant={plan.isPopular ? "default" : "outline"}
+                  >
+                    <Link to="/auth">
+                      {plan.isFree ? "Start Free" : plan.name === "Enterprise" ? "Contact Sales" : "Subscribe"} 
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             </div>
-          </div>
-
-          {/* Pro Plan */}
-          <div className="relative group bg-card border border-primary rounded-xl overflow-hidden transition-all hover:shadow-lg">
-            {/* Enhanced Popular Badge */}
-            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary to-violet-600"></div>
-            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-primary to-violet-600 text-xs text-white font-medium px-4 py-1.5 rounded-full shadow-md">
-              MOST POPULAR
-            </div>
-            
-            <div className="p-6 md:p-8 pt-10">
-              <h3 className="text-xl font-semibold mb-2">Pro</h3>
-              <p className="text-muted-foreground mb-6">For content creators</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">${annual ? "29" : "39"}</span>
-                <span className="text-muted-foreground">/month</span>
-                {annual && <span className="ml-2 text-xs text-primary font-medium">Save $120/year</span>}
-              </div>
-              <Button className="w-full mb-6 bg-primary text-white hover:bg-primary/90" asChild>
-                <Link to="/auth">Get Started</Link>
-              </Button>
-
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm"><strong>Unlimited</strong> blog conversions</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">All social media platforms</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Advanced SEO optimization</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">WordPress & Webflow integration</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Real-time collaboration</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Priority email support</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Enterprise Plan */}
-          <div className="relative group bg-card border border-border rounded-xl overflow-hidden transition-all hover:shadow-lg">
-            <div className="p-6 md:p-8">
-              <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-              <p className="text-muted-foreground mb-6">For teams & agencies</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">${annual ? "299" : "349"}</span>
-                <span className="text-muted-foreground">/month</span>
-                {annual && <span className="ml-2 text-xs text-primary font-medium">Save $600/year</span>}
-              </div>
-              <Button className="w-full mb-6" variant="outline" asChild>
-                <Link to="/auth">Contact Sales</Link>
-              </Button>
-
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Everything in Pro, plus:</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm"><strong>Unlimited</strong> team members</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Custom AI training on your content</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">White labeling & custom domain</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Advanced analytics dashboard</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">Dedicated account manager</span>
-                </div>
-                <div className="flex items-start">
-                  <Check className="mr-3 h-5 w-5 text-primary shrink-0" />
-                  <span className="text-sm">24/7 priority support</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-4">
+        <div className="text-center mt-12 animated fade-in-up delay-600">
+          <p className="text-muted-foreground mb-6">
             All plans include a 14-day free trial. No credit card required.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Need a custom solution? <a href="#" className="text-primary hover:underline">Contact our sales team</a>
-          </p>
+          <Button asChild variant="outline">
+            <Link to="/pricing">Compare All Features</Link>
+          </Button>
         </div>
       </div>
     </section>

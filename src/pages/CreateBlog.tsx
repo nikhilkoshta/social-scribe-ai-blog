@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import TextEditor from "@/components/TextEditor";
 import SocialPostImporter from "@/components/SocialPostImporter";
-import { ArrowLeft, Save, Send, Eye } from "lucide-react";
+import { ArrowLeft, Save, Send, Eye, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -42,35 +42,31 @@ export default function CreateBlog() {
     }
   }, [content, title]);
   
-  const handleGenerateFromSocial = async (socialContent: string, source: string) => {
+  const handleGenerateFromSocial = async (socialContent: string, source: string, generatedTitle?: string, generatedSeoScore?: number) => {
     setLoading(true);
     
     try {
-      // Simulate AI processing
-      toast({
-        title: "Processing your content",
-        description: "Our AI is analyzing and expanding your post..."
-      });
-      
-      // Simulate AI delay
-      setTimeout(() => {
-        // Basic expansion algorithm
-        const expandedContent = expandContentWithAI(socialContent);
-        
-        // Set title based on first sentence
+      // If title was provided by the AI, use it
+      if (generatedTitle) {
+        setTitle(generatedTitle);
+      } else {
+        // Basic title generation based on first sentence
         const firstSentence = socialContent.split('.')[0].trim();
         setTitle(firstSentence);
-        
-        // Set expanded content
-        setContent(expandedContent);
-        
-        toast({
-          title: "Content generated",
-          description: "Your blog post has been created. You can now edit it."
-        });
-        
-        setLoading(false);
-      }, 2000);
+      }
+      
+      // Set content from AI
+      setContent(socialContent);
+      
+      // Set SEO score if provided
+      if (generatedSeoScore) {
+        setSeoScore(generatedSeoScore);
+      }
+      
+      toast({
+        title: "Content generated",
+        description: "Your blog post has been created. You can now edit it."
+      });
     } catch (error) {
       console.error("Error generating content:", error);
       toast({
@@ -78,46 +74,9 @@ export default function CreateBlog() {
         title: "Generation failed",
         description: "We couldn't generate content from your post. Please try again."
       });
+    } finally {
       setLoading(false);
     }
-  };
-  
-  // Simple content expansion function (simulating AI)
-  const expandContentWithAI = (content: string): string => {
-    const paragraphs = content.split('\n').filter(p => p.trim().length > 0);
-    
-    let expandedContent = `<h2>Introduction</h2>
-<p>${paragraphs[0]}</p>
-<p>This topic is important because it helps us understand the broader context of digital transformation in today's rapidly evolving landscape. Let's dive deeper into what this means and why it matters.</p>
-
-<h2>Main Points</h2>
-<p>${paragraphs.length > 1 ? paragraphs[1] : 'When we consider the implications of this discussion, several key factors emerge that warrant our attention and analysis.'}</p>
-<p>To further elaborate on this point, we should consider the following aspects:</p>
-<ul>
-<li>The increasing role of artificial intelligence in content creation</li>
-<li>How automation is changing traditional workflows</li>
-<li>The impact on SEO and content discovery</li>
-<li>Future trends that may emerge from these developments</li>
-</ul>
-
-<h2>Analysis</h2>
-<p>${paragraphs.length > 2 ? paragraphs[2] : 'Looking at the data and current trends, we can observe several patterns that indicate where this field is heading.'}</p>
-<p>Industry experts have noted that these developments represent just the beginning of a significant shift in how content is created, distributed, and consumed across digital platforms.</p>
-
-<h2>Practical Applications</h2>
-<p>For content creators and marketers, these insights can be applied in several practical ways:</p>
-<ol>
-<li>Leverage AI tools to scale content production without sacrificing quality</li>
-<li>Focus on adding unique human perspectives that AI cannot replicate</li>
-<li>Create content frameworks that can be enhanced with AI assistance</li>
-<li>Develop workflows that combine human creativity with AI efficiency</li>
-</ol>
-
-<h2>Conclusion</h2>
-<p>In conclusion, the landscape of content creation is evolving rapidly, and staying adaptable is key to success. By embracing new technologies while maintaining focus on quality and authenticity, content creators can thrive in this new environment.</p>
-<p>The future belongs to those who can effectively blend technological capabilities with human creativity and strategic thinking.</p>`;
-    
-    return expandedContent;
   };
   
   const handleSaveBlog = async (status: 'draft' | 'published') => {
@@ -224,15 +183,33 @@ export default function CreateBlog() {
               onClick={() => handleSaveBlog('draft')} 
               disabled={loading}
             >
-              <Save className="h-4 w-4 mr-2" />
-              Save Draft
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Save Draft
+                </>
+              )}
             </Button>
             <Button 
               onClick={() => handleSaveBlog('published')} 
               disabled={loading}
             >
-              <Send className="h-4 w-4 mr-2" />
-              Publish
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Publishing...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4 mr-2" />
+                  Publish
+                </>
+              )}
             </Button>
           </div>
         </div>

@@ -20,7 +20,8 @@ import {
 import { 
   Check, 
   HelpCircle, 
-  ArrowRight 
+  ArrowRight,
+  Sparkles
 } from "lucide-react";
 import { 
   Tooltip, 
@@ -121,13 +122,14 @@ export default function Pricing() {
       {/* Hero Section */}
       <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-10" />
+        <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
         <div className="container px-4 md:px-6">
           <div 
             className={`max-w-3xl mx-auto text-center transition-all duration-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-br from-foreground via-foreground to-foreground/70">
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-primary/70">
               Simple, Transparent Pricing
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -162,14 +164,17 @@ export default function Pricing() {
               <Card 
                 key={plan.name}
                 className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${
-                  plan.isPopular ? 'border-primary relative shadow-md' : 'border-border hover:border-primary/50'
+                  plan.isPopular ? 'border-primary relative shadow-lg dark:shadow-primary/10' : 'border-border hover:border-primary/50'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 {plan.isPopular && (
                   <>
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold py-1 px-3 rounded-full z-10">
-                      MOST POPULAR
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs font-semibold py-1 px-3 rounded-full z-10">
+                      <span className="flex items-center">
+                        <Sparkles className="h-3 w-3 mr-1" />
+                        MOST POPULAR
+                      </span>
                     </div>
                     <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-violet-500"></div>
                   </>
@@ -243,7 +248,7 @@ export default function Pricing() {
             ))}
           </div>
           
-          <div className="mt-16 text-center opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
+          <div className="mt-16 text-center opacity-0 animate-fade-in" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
             <p className="text-muted-foreground mb-4">
               All plans include a 14-day free trial. No credit card required.
             </p>
@@ -257,7 +262,7 @@ export default function Pricing() {
       {/* FAQ */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '700ms' }}>
+          <div className="text-center mb-12 opacity-0 animate-fade-in" style={{ animationDelay: '700ms', animationFillMode: 'forwards' }}>
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
               Frequently Asked Questions
             </h2>
@@ -289,7 +294,7 @@ export default function Pricing() {
                 a: "We accept all major credit cards, including Visa, Mastercard, and American Express. Enterprise customers can also pay via invoice with net-30 terms."
               }
             ].map((faq, index) => (
-              <Card key={index} className="opacity-0 animate-fade-in" style={{ animationDelay: `${800 + (index * 100)}ms` }}>
+              <Card key={index} className="opacity-0 animate-fade-in" style={{ animationDelay: `${800 + (index * 100)}ms`, animationFillMode: 'forwards' }}>
                 <CardHeader>
                   <CardTitle className="text-xl">{faq.q}</CardTitle>
                 </CardHeader>
@@ -300,7 +305,7 @@ export default function Pricing() {
             ))}
           </div>
           
-          <div className="mt-12 text-center opacity-0 animate-fade-in" style={{ animationDelay: '1300ms' }}>
+          <div className="mt-12 text-center opacity-0 animate-fade-in" style={{ animationDelay: '1300ms', animationFillMode: 'forwards' }}>
             <p className="mb-6 text-lg">
               Still have questions? We're here to help.
             </p>
@@ -312,10 +317,11 @@ export default function Pricing() {
       </section>
       
       {/* CTA */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-3xl mx-auto text-center opacity-0 animate-fade-in" style={{ animationDelay: '1400ms' }}>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute -bottom-24 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="container px-4 md:px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center opacity-0 animate-fade-in" style={{ animationDelay: '1400ms', animationFillMode: 'forwards' }}>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-primary/70">
               Ready to Transform Your Social Content?
             </h2>
             <p className="text-muted-foreground md:text-lg mb-8">
@@ -332,6 +338,23 @@ export default function Pricing() {
           </div>
         </div>
       </section>
+      
+      <style jsx global>{`
+        @keyframes fade-in {
+          0% { 
+            opacity: 0; 
+            transform: translateY(10px);
+          }
+          100% { 
+            opacity: 1; 
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+      `}</style>
     </Layout>
   );
 }
