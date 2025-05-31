@@ -50,9 +50,11 @@ export default function HeroSection() {
               }`}
               style={{transitionDelay: '100ms'}}
             >
-              Turn Social Posts into <span className="text-gradient relative">
-                SEO Blogs
-                <span className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary/60 to-violet-500/60 rounded-full"></span>
+              Turn Social Posts into 
+              <span className="text-gradient relative">
+                <span className="absolute bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary/60 to-violet-500/60 rounded-full">
+                  SEO Blogs
+                </span>
               </span> - Automatically
             </h1>
 
